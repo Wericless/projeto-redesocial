@@ -2,41 +2,48 @@
   <nav>
     <div class="menu-item" v-if="larguraDaTela >= 600">
       <span class="menu-item efeito-item">
-        <a href="#">Principais Publicações</a>
+        <router-link to="/">Principais Publicações</router-link>
       </span>
       <span class="menu-item efeito-item">
-        <a href="#">Minhas Publicações</a>
+        <router-link to="/minhaspostagens">Minhas Publicações</router-link>
       </span>
       <span class="sair">
-        <button class="efeito-item">Sair</button>
+        <button class="menu-item efeito-item">Sair</button>
       </span>
     </div>
 
     <div class="menu-img" v-else>
-      <button class="out">
-        <img
-          class="tamanhoImg img-home"
-          :src="principaisPublie"
-          alt="pagina principal"
-        />
+      <button class="img-home">
+        <router-link to="/"
+          ><img
+            class="tamanhoImg"
+            :src="principaisPubli"
+            alt="pagina principal"
+        /></router-link>
       </button>
-      <button class="out">
-        <img class="tamanhoImg" :src="minhasPubli" alt="minha publicações" />
+      <button class="img-minhas-publicacoes">
+        <router-link to="/minhaspostagens"
+          ><img class="tamanhoImg" :src="minhasPubli" alt="minha publicações"
+        /></router-link>
       </button>
-      <button class="out">
-        <img class="tamanhoImg img-sair" :src="logoutImg" alt="logout" />
+      <button class="img-sair">
+        <img class="tamanhoImg" :src="logoutImg" alt="logout" />
       </button>
     </div>
   </nav>
+  <Postagens v-if="$route.path === '/'" />
 </template>
 
 <script>
+import Postagens from "./Postagens.vue";
 export default {
-  name: "navbar",
+  components: {
+    Postagens,
+  },
   data() {
     return {
       larguraDaTela: window.innerWidth,
-      principaisPublie: "/img/home.png",
+      principaisPubli: "/img/home.png",
       minhasPubli: "img/profile-user.png",
       logoutImg: "img/logout.png",
     };
@@ -63,6 +70,17 @@ export default {
 </script>
 
 <style scoped>
+body {
+  font-family: "Montserrat", sans-serif;
+  font-family: "Oxanium", sans-serif;
+  font-family: "Roboto", sans-serif;
+  background-image: url("/public/img/back-verde.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
 header {
   width: 100vw;
   background-color: #5a7c6f;
@@ -78,13 +96,13 @@ nav {
 
 nav .efeito-item.active,
 nav .efeito-item:hover {
-  background-color: #444444;
-  border-bottom-color: #587fff;
+  background-color: #ffffff;
+  border-color: #587fff;
   border-radius: 3px;
 }
 
 nav .menu-item {
-  color: #fff;
+  color: #0e0606;
   padding: 10px 20px;
   text-align: center;
   border-bottom: 3px solid transparent;
@@ -98,7 +116,7 @@ nav .menu-item a {
 }
 
 nav .sair button {
-  color: #fff;
+  color: #0a0404;
   padding: 10px 20px;
   text-align: center;
   display: flex;
@@ -106,7 +124,7 @@ nav .sair button {
   position: absolute;
   left: 95%;
   top: 30px;
-  transform: translate(-63%, 30%);
+  transform: translate(-63%, 128%);
   background-color: #0000;
   border: none;
   cursor: pointer;
@@ -123,9 +141,8 @@ nav .menu-img {
   display: flex;
   transition: 0.4s;
   position: absolute;
-  left: 90%;
+  left: 80%;
   top: 33px;
-  transform: translate(-90%, 10%);
   background-color: #0000;
   border: none;
   cursor: pointer;
@@ -144,7 +161,14 @@ nav .menu-img {
   cursor: pointer;
 }
 
-.out {
+.img-minhas-publicacoes {
+  color: #fff;
+  text-align: center;
+  display: flex;
+  transition: 0.4s;
+  position: absolute;
+  left: 44%;
+  top: 33px;
   background-color: #0000;
   border: none;
   cursor: pointer;
