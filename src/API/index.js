@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const rede = axios.create({
-  baseURL: "http://62.72.63.164:5000/api/Post/",
+  baseURL: "http://62.72.63.164:5000/ap/",
 
   headers: {
     "Content-type": "application/json",
