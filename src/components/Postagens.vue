@@ -43,7 +43,7 @@ export default {
 
   methods: {
     consultarPosts() {
-      API.getPost()
+      API.getPostAll()
         .then((res) => {
           this.postagens = res;
         })

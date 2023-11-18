@@ -4,6 +4,7 @@
     <div class="login">
       <input type="text" v-model="email" placeholder="Email" />
       <input type="password" v-model="senha" placeholder="Senha" />
+      <input type="text" v-model="token" placeholder="Token" />
       <button @click="login" class="login-button">Entar</button>
       <p>
         <router-link to="/cadastro">Cadastrar-se</router-link>
@@ -13,17 +14,31 @@
 </template>
 
 <script>
-// import rede from "@/API";
+import API from "@/API";
 export default {
   name: "login",
   data() {
     return {
       email: "",
       senha: "",
+      token: "",
     };
   },
   methods: {
-    login() {},
+    login() {
+      const dados = {
+        email: this.email,
+        senha: this.senha,
+        token: this.token,
+      };
+      API.getUserLogin(dados)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
 };
 </script>

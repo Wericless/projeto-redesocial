@@ -4,11 +4,10 @@
     <div class="registro">
       <input type="text" v-model="name" placeholder="Nome" />
       <input type="text" v-model="email" placeholder="Email" />
-      <input type="password" v-model="senha" placeholder="Senha" />
+      <input type="password" v-model="password" placeholder="Senha" />
       <input
-        v-if="name && email && senha"
         type="password"
-        v-model="confirmSenha"
+        v-model="confirmPassword"
         placeholder="Confirmar Senha"
       />
 
@@ -21,26 +20,24 @@
 </template>
 
 <script>
+import API from "@/API";
 export default {
   name: "login",
   data() {
     return {
-      name: "",
-      email: "",
-      senha: "",
+      data: { name: "", email: "", password: "", confirmPassword: "" },
     };
   },
   methods: {
     registrar() {
-      if (this.senha === this.confirmSenha) {
-        console.log(
-          "Registrado com sucesso",
-          this.name,
-          this.email,
-          this.senha
-        );
-      } else {
-        console.log("As senhas não coincidem. Tente novamente.");
+      if (this.data.password === this.data.confirmPassword) {
+        API.postCreateUser(this.data)
+          .then((response) => {
+            console.log("Registrado com sucesso", response);
+          })
+          .catch((error) => {
+            console.log("Erro ao registrar", error);
+          });
       }
     },
   },
