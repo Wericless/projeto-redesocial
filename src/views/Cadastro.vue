@@ -1,6 +1,13 @@
 <template>
-  <div id="App">
-    <img class="logo" src="../assets/pied-piper-logo.png" />
+  <div id="app">
+    <div class="icon-img">
+      <img
+        class="logo"
+        src="../assets/pied-piper-logo.png"
+        style="max-width: 100%; height: auto"
+      />
+    </div>
+
     <div class="registro">
       <input type="text" v-model="name" placeholder="Nome" />
       <input type="text" v-model="email" placeholder="Email" />
@@ -44,13 +51,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
-
+.icon-img {
+  text-align: center;
+}
 .logo {
   width: 17%;
   height: 20%;
@@ -93,6 +102,7 @@ export default {
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.3s ease;
+  margin-bottom: 10px;
 }
 
 .register-button:hover,

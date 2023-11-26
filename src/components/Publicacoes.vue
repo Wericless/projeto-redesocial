@@ -1,6 +1,6 @@
 <template>
   <div id="postagens">
-    <h1>postagem</h1>
+    <h1>Publicacoes</h1>
 
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet
@@ -53,7 +53,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #postagens {
   display: flex;
   flex-direction: column;

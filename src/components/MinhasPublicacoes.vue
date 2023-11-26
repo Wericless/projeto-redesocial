@@ -1,5 +1,4 @@
 <template>
-  <Home />
   <div id="minhas-publi">
     <h1>Minhas Postagens</h1>
     <p>
@@ -11,13 +10,10 @@
 </template>
 
 <script>
-import Home from "./Home.vue";
-export default {
-  components: { Home },
-};
+export default {};
 </script>
 
-<style>
+<style scoped>
 #minhas-publi {
   display: flex;
   flex-direction: column;

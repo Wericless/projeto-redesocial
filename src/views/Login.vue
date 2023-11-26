@@ -1,6 +1,13 @@
 <template>
-  <div id="App">
-    <img class="logo" src="../assets/pied-piper-logo.png" />
+  <div id="app">
+    <div class="icon-img">
+      <img
+        class="logo"
+        src="../assets/pied-piper-logo.png"
+        style="max-width: 100%; height: auto"
+      />
+    </div>
+
     <div class="login">
       <input type="text" v-model="email" placeholder="Email" />
       <input type="password" v-model="senha" placeholder="Senha" />
@@ -50,19 +57,15 @@ export default {
   margin-top: 60px;
 }
 
+.icon-img {
+  text-align: center;
+}
+
 .logo {
   width: 17%;
   height: 20%;
   margin-bottom: 15px;
   margin-left: 50px;
-}
-
-@media (max-width: 600px) {
-  .logo {
-    width: 80%;
-    height: auto;
-    margin-left: 15%;
-  }
 }
 
 .registro input,

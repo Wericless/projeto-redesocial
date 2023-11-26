@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Home from "../views/Home.vue";
 import Cadastro from "../views/Cadastro.vue";
 import Login from "../views/Login.vue";
-import Home from "../components/Home.vue";
-import Postagens from "../components/Postagens.vue";
-import Minhaspostagens from "../components/MinhasPostagens.vue";
+import Publicacoes from "../components/Publicacoes.vue";
+import Minhaspublicacoes from "../components/MinhasPublicacoes.vue";
 
 const routes = [
   {
@@ -22,14 +22,14 @@ const routes = [
     component: Login,
   },
   {
-    name: "Postagens",
-    path: "/postagens",
-    component: Postagens,
+    name: "Publicacoes",
+    path: "/publicacoes",
+    component: Publicacoes,
   },
   {
-    name: "MinhasPostagens",
-    path: "/minhaspostagens",
-    component: Minhaspostagens,
+    name: "Minhaspublicacoes",
+    path: "/minhaspublicacoes",
+    component: Minhaspublicacoes,
   },
 ];
 
