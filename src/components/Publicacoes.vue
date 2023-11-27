@@ -1,71 +1,93 @@
 <template>
-  <div id="postagens">
-    <h1>Publicacoes</h1>
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet
-      pretium diam. In ut aliquet dui. Nam malesuada elit interdum dolor
-      eleifend, accumsan aliquet massa consequat. Aliquam venenatis nisi et orci
-      placerat pharetra. Maecenas laoreet leo at convallis semper. Cras feugiat
-      metus sed ligula congue posuere. Nulla vestibulum ex eget molestie
-      interdum. Nunc posuere ex in ultricies laoreet. Sed rutrum nunc elementum,
-      pellentesque nisi sed, rhoncus erat. Curabitur at venenatis augue, ac
-      viverra nibh. Vivamus quis tristique libero. Etiam id orci tempor, tempus
-      urna a, pellentesque ex. Donec gravida pellentesque dictum. Proin ut
-      tortor eros.
-    </p>
-    <p>
-      Nunc posuere ex in ultricies laoreet. Sed rutrum nunc elementum,
-      pellentesque nisi sed, rhoncus erat. Curabitur at venenatis augue, ac
-      viverra nibh. Vivamus quis tristique libero. Etiam id orci tempor, tempus
-      urna a, pellentesque ex. Donec gravida pellentesque dictum. Proin ut
-      tortor eros.
-    </p>
-    <p>
-      Vivamus quis tristique libero. Etiam id orci tempor, tempus urna a,
-      pellentesque ex. Donec gravida pellentesque dictum. Proin ut tortor eros.
-    </p>
+  <div id="app">
+    <NavegacaoMobile />
+    <div class="content" :class="{ open: showNav }">
+      <div class="top-bar">
+        <div id="navegacao-icon" v-if="mobileView" @click="showNav = !showNav">
+          <i class="fas fa-bars"> </i>
+        </div>
+        <!-- <Postagens /> -->
+        <Navegacao v-if="!mobileView" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import API from "@/API";
-
+import Navegacao from "../components/Navegacao.vue";
+import NavegacaoMobile from "../components/NavegacaoMobile.vue";
+// import Postagens from "../components/Postagens.vue";
 export default {
   data() {
     return {
-      postagens: [],
+      mobileView: true,
+      showNav: false,
     };
   },
-  mounted() {
-    this.consultarPosts();
-  },
-
   methods: {
-    consultarPosts() {
-      API.getPostAll()
-        .then((res) => {
-          this.postagens = res;
-        })
-        .catch((erro) => {});
+    renderizar() {
+      this.mobileView = window.innerWidth <= 990;
     },
+  },
+  components: {
+    Navegacao,
+    NavegacaoMobile,
+    // Postagens,
+  },
+  created() {
+    this.renderizar();
+    window.addEventListener("resize", this.renderizar);
   },
 };
 </script>
 
-<style scoped>
-#postagens {
+<style>
+body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #7ca971;
+}
+
+#app {
+  position: relative;
+  width: calc(100% - 20px);
+  height: calc(100vh - 20px);
+  padding: 10px;
+  color: #333;
+  overflow: hidden;
+}
+
+.top-bar {
   display: flex;
-  flex-direction: column;
-  text-align: left;
+  width: 100%;
 }
 
-p {
-  margin: 25px;
+.content {
+  position: absolute;
+  top: 10px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 60px);
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  transition: 1s transform cubic-bezier(0.63, -0.09, 0.01, 1);
 }
 
-h1 {
-  margin-bottom: 20px;
-  text-align: center;
+#navegacao-icon {
+  padding: 10px 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  display: flex;
+}
+
+i {
+  font-size: 2rem;
+}
+
+.open {
+  transform: translateX(200px);
 }
 </style>
