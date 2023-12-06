@@ -5,14 +5,15 @@ export const rede = axios.create({
 
   headers: {
     "Content-type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
   },
 });
 
 export default {
   getPostAll() {
-    return rede.get("/GetAllPosts");
+    return rede.get("/post/GetAllPosts");
   },
-  getUserLogin(data) {
+  reaizarLogin(data) {
     return rede.post("/User/Login", data);
   },
   postCreateUser(data) {

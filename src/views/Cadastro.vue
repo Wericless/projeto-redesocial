@@ -57,6 +57,17 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-family: "Oxanium", sans-serif;
+  font-family: "Roboto", sans-serif;
+  background-image: url("/public/img/Papel-de-parede-degrade-verde-133.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
 .icon-img {
   text-align: center;
 }

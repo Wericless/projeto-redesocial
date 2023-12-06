@@ -5,13 +5,20 @@
       <li>
         <router-link to="/minhasPublicacoes">Minhas Publicações</router-link>
       </li>
-      <li>Sobre</li>
+      <li @click="logout">Sair</li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -1,41 +1,51 @@
 <template>
   <div class="postagens">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacus
-      justo, volutpat blandit vulputate id, volutpat sed magna. Integer et
-      ligula ut sem tempor aliquet vitae ut erat. Vestibulum ante diam,
-      tincidunt non augue ac, mollis tristique felis. Donec nec metus eget nulla
-      cursus efficitur.
-    </p>
-
-    <p>
-      Mauris vestibulum laoreet egestas. Cras mollis nulla id quam consequat
-      consectetur. Quisque sed metus dolor. Sed tincidunt, magna eget efficitur
-      placerat, magna ex iaculis augue,
-    </p>
-
-    <p>
-      Nulla maximus nisl tortor, a vulputate eros sodales sed. Curabitur et
-      tellus justo. Nunc semper pretium posuere. Pellentesque egestas bibendum
-      pretium. Nulla et leo sit amet sem lobortis ullamcorper. Nunc ac nulla sed
-      tellus convallis venenatis. Proin eleifend, diam vel euismod porttitor,
-      elit ante ornare dolor
-    </p>
-
-    <p>
-      Maecenas pellentesque eros eget justo placerat, vitae tincidunt libero
-      luctus. Integer eget fringilla lacus. Nam ante orci, tempor ac rutrum sit
-      amet, bibendum euismod tellus
-    </p>
+    <div v-for="post in posts" :key="post.id" class="post">
+      <h3>{{ post.user.name }}</h3>
+      <p>{{ post.content }}</p>
+      <span>{{ formatarData(post.createdAt) }}</span>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+import API from "@/API";
+
+export default {
+  data() {
+    return {
+      posts: [],
+    };
+  },
+  mounted() {
+    this.todosPosts();
+  },
+  methods: {
+    todosPosts() {
+      API.getPostAll().then((response) => {
+        this.posts = response.data;
+      });
+    },
+    formatarData(data) {
+      const dataFormatada = format(new Date(data), "dd/MM/yyyy", {
+        locale: ptBR,
+      });
+      const horaFormatada = format(new Date(data), "HH:mm:ss", {
+        locale: ptBR,
+      });
+      return `${dataFormatada} ${horaFormatada}`;
+    },
+  },
+};
 </script>
 
 <style>
-.postagens {
-  display: flex;
+.post {
+  margin-bottom: 10px;
+  background-color: #7ca971;
+  border-radius: 15px;
+  padding: 10px 10px 10px 10px;
 }
 </style>

@@ -6,9 +6,10 @@
         <div id="navegacao-icon" v-if="mobileView" @click="showNav = !showNav">
           <i class="fas fa-bars"> </i>
         </div>
-        <!-- <Postagens /> -->
+
         <Navegacao v-if="!mobileView" />
       </div>
+      <div><Postagens /></div>
     </div>
   </div>
 </template>
@@ -16,7 +17,8 @@
 <script>
 import Navegacao from "../components/Navegacao.vue";
 import NavegacaoMobile from "../components/NavegacaoMobile.vue";
-// import Postagens from "../components/Postagens.vue";
+import Postagens from "../components/Postagens.vue";
+
 export default {
   data() {
     return {
@@ -24,6 +26,7 @@ export default {
       showNav: false,
     };
   },
+
   methods: {
     renderizar() {
       this.mobileView = window.innerWidth <= 990;
@@ -32,7 +35,7 @@ export default {
   components: {
     Navegacao,
     NavegacaoMobile,
-    // Postagens,
+    Postagens,
   },
   created() {
     this.renderizar();
@@ -41,7 +44,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 body {
   width: 100%;
   height: 100vh;

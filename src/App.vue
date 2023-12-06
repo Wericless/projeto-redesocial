@@ -6,4 +6,9 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+}
+</style>

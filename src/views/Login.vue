@@ -11,7 +11,7 @@
     <div class="login">
       <input type="text" v-model="email" placeholder="Email" />
       <input type="password" v-model="senha" placeholder="Senha" />
-      <input type="text" v-model="token" placeholder="Token" />
+
       <button @click="login" class="login-button">Entar</button>
       <p>
         <router-link to="/cadastro">Cadastrar-se</router-link>
@@ -28,19 +28,22 @@ export default {
     return {
       email: "",
       senha: "",
-      token: "",
     };
   },
   methods: {
     login() {
       const dados = {
         email: this.email,
-        senha: this.senha,
-        token: this.token,
+        password: this.senha,
       };
-      API.getUserLogin(dados)
+      API.reaizarLogin(dados)
         .then((response) => {
-          console.log(response.data);
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("id", response.data.id);
+          localStorage.setItem("name", response.data.name);
+          localStorage.setItem("emial", response.data.email);
+
+          this.$router.push("/");
         })
         .catch((error) => {
           console.error(error);
@@ -57,6 +60,16 @@ export default {
   margin-top: 60px;
 }
 
+body {
+  font-family: "Montserrat", sans-serif;
+  font-family: "Oxanium", sans-serif;
+  font-family: "Roboto", sans-serif;
+  background-image: url("/public/img/Papel-de-parede-degrade-verde-133.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
 .icon-img {
   text-align: center;
 }
