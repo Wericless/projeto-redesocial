@@ -9,6 +9,19 @@
 
         <Navegacao v-if="!mobileView" />
       </div>
+
+      <div>
+        <textarea
+          v-model="textoPostagem"
+          placeholder="O que está acontecendo?"
+          name=""
+          id=""
+          cols="50"
+          rows="5"
+        ></textarea>
+        <div id="novaPubli"><button @click="novoPost">POSTAR</button></div>
+      </div>
+
       <div><Postagens /></div>
     </div>
   </div>
@@ -24,12 +37,20 @@ export default {
     return {
       mobileView: true,
       showNav: false,
+      publicar: true,
+      criar: null,
+      textoPostagem: "",
     };
   },
 
   methods: {
     renderizar() {
       this.mobileView = window.innerWidth <= 990;
+    },
+    novoPost() {
+      API.criarPostagem({ content: this.textoPostagem }).then((response) => {
+        this.criar = response.data;
+      });
     },
   },
   components: {
@@ -43,54 +64,38 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-body {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  background-color: #7ca971;
+<style>
+#novaPubli {
+  margin: 5px 5px 5px 0;
+  padding: 5px 5px 5px 0;
 }
 
-#app {
-  position: relative;
-  width: calc(100% - 20px);
-  height: calc(100vh - 20px);
-  padding: 10px;
-  color: #333;
-  overflow: hidden;
-}
-
-.top-bar {
-  display: flex;
-  width: 100%;
-}
-
-.content {
-  position: absolute;
-  top: 10px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 60px);
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 30px;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  transition: 1s transform cubic-bezier(0.63, -0.09, 0.01, 1);
-}
-
-#navegacao-icon {
-  padding: 10px 10px 20px;
-  margin-right: 10px;
+#novaPubli button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  display: flex;
+  transition: background-color 0.3s ease-in-out;
+  font-weight: bold;
 }
 
-i {
-  font-size: 2rem;
+#novaPubli button:hover {
+  background-color: #1375b6;
 }
-
-.open {
-  transform: translateX(200px);
+textarea {
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  resize: none;
+}
+textarea:focus {
+  border: 2px solid #3498db;
 }
 </style>

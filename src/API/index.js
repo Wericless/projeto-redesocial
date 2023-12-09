@@ -13,10 +13,16 @@ export default {
   getPostAll() {
     return rede.get("/post/GetAllPosts");
   },
-  reaizarLogin(data) {
+  postUsuario() {
+    return rede.get("/post/GetMyPosts");
+  },
+  realizarLogin(data) {
     return rede.post("/User/Login", data);
   },
   postCreateUser(data) {
     return rede.post("/User/CreateUser", data);
+  },
+  criarPostagem(data) {
+    return rede.post("/Post/CreatePost", data);
   },
 };

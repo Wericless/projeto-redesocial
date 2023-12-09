@@ -36,7 +36,7 @@ export default {
         email: this.email,
         password: this.senha,
       };
-      API.reaizarLogin(dados)
+      API.realizarLogin(dados)
         .then((response) => {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("id", response.data.id);
