@@ -8,13 +8,7 @@
         </div>
         <Navegacao v-if="!mobileView" />
       </div>
-      <div class="postUsuario">
-        <div v-for="post in posts" :key="post.id" class="post">
-          <h3>{{ post.user.name }}</h3>
-          <p>{{ post.content }}</p>
-          <span>{{ formatarData(post.createdAt) }}</span>
-        </div>
-      </div>
+      <div class="postUsuario"></div>
     </div>
   </div>
 </template>
@@ -37,14 +31,6 @@ export default {
     renderizar() {
       this.mobileView = window.innerWidth <= 990;
     },
-  },
-  mounted() {
-    this.meusPosts();
-  },
-  meusPosts() {
-    API.postUsuario().then((response) => {
-      this.posts = response.data;
-    });
   },
 
   created() {

@@ -10,19 +10,22 @@ export const rede = axios.create({
 });
 
 export default {
+  criarUsuario(data) {
+    return rede.post("/User/CreateUser", data);
+  },
+  realizarLogin(data) {
+    return rede.post("/User/Login", data);
+  },
+  criarPostagem(data) {
+    return rede.post("/Post/CreatePost", data);
+  },
+  deletarPost(idPost) {
+    return rede.delete(`/post/DeletePost/${idPost}`);
+  },
   getPostAll() {
     return rede.get("/post/GetAllPosts");
   },
   postUsuario() {
     return rede.get("/post/GetMyPosts");
-  },
-  realizarLogin(data) {
-    return rede.post("/User/Login", data);
-  },
-  postCreateUser(data) {
-    return rede.post("/User/CreateUser", data);
-  },
-  criarPostagem(data) {
-    return rede.post("/Post/CreatePost", data);
   },
 };

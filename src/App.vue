@@ -23,7 +23,6 @@ body {
   height: calc(100vh - 20px);
   padding: 10px;
   color: #333;
-  overflow: hidden;
 }
 
 .top-bar {
@@ -34,8 +33,7 @@ body {
 .content {
   position: absolute;
   top: 10px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 60px);
+
   padding: 20px;
   background-color: #fff;
   border-radius: 30px;

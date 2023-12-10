@@ -16,8 +16,9 @@
           placeholder="O que está acontecendo?"
           name=""
           id=""
-          cols="50"
-          rows="5"
+          cols="30"
+          :class="{ 'small-textarea': mobileView }"
+          rows="3"
         ></textarea>
         <div id="novaPubli"><button @click="novoPost">POSTAR</button></div>
       </div>
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import API from "@/API";
 import Navegacao from "../components/Navegacao.vue";
 import NavegacaoMobile from "../components/NavegacaoMobile.vue";
 import Postagens from "../components/Postagens.vue";
@@ -50,6 +52,12 @@ export default {
     novoPost() {
       API.criarPostagem({ content: this.textoPostagem }).then((response) => {
         this.criar = response.data;
+        location.reload();
+      });
+    },
+    excluirPost(idPost) {
+      API.deletarPost(idPost).then((response) => {
+        this.excluir = response.data;
       });
     },
   },
@@ -64,6 +72,7 @@ export default {
   },
 };
 </script>
+
 <style>
 #novaPubli {
   margin: 5px 5px 5px 0;
@@ -97,5 +106,8 @@ textarea {
 }
 textarea:focus {
   border: 2px solid #3498db;
+}
+.small-textarea {
+  width: 80%;
 }
 </style>

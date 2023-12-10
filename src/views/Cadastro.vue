@@ -32,13 +32,20 @@ export default {
   name: "login",
   data() {
     return {
-      data: { name: "", email: "", password: "", confirmPassword: "" },
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     };
   },
   methods: {
     registrar() {
-      if (this.data.password === this.data.confirmPassword) {
-        API.postCreateUser(this.data)
+      if (this.password === this.confirmPassword) {
+        API.criarUsuario({
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        })
           .then((response) => {
             console.log("Registrado com sucesso", response);
           })
