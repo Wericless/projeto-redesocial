@@ -15,6 +15,9 @@
           alt="Excluir"
         />
       </button>
+      <button class="editarPostagem">
+        <img src="/img/edit.png" alt="editar" />
+      </button>
       <button class="botaoLike" @click="alternarLike(post)">
         <img v-if="!post.likeAtivo" src="/img/likeNormal.png" alt="Like" />
         <img v-if="post.likeAtivo" src="/img/LikeAtivo.png" alt="Like" />
@@ -84,7 +87,17 @@ export default {
   background-color: #7ca971;
   border-radius: 15px;
   padding: 10px;
-  position: relative; /* Para posicionar o botão de exclusão */
+  position: relative;
+}
+
+.editarPostagem {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  bottom: 5px;
+  right: 30px;
 }
 
 .botaoExcluir {

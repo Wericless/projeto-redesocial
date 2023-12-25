@@ -61,11 +61,6 @@ export default {
 <style scoped>
 #app {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-body {
   font-family: "Montserrat", sans-serif;
   font-family: "Oxanium", sans-serif;
   font-family: "Roboto", sans-serif;
@@ -74,6 +69,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+  border-radius: 10px;
 }
 .icon-img {
   text-align: center;
