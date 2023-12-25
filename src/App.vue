@@ -32,8 +32,8 @@ body {
 
 .content {
   position: absolute;
+  width: auto;
   top: 10px;
-
   padding: 20px;
   background-color: #fff;
   border-radius: 30px;

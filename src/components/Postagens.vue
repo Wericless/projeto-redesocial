@@ -5,11 +5,19 @@
       <p>{{ post.content }}</p>
       <span>{{ formatarData(post.createdAt) }}</span>
 
-      <button class="botaoExcluir" @click="excluirPost(post.id)">
+      <button
+        class="botaoExcluir"
+        @click="excluirPost(post.id)"
+        v-if="post.userId == meuId"
+      >
         <img
           src="/img/4105949-bin-delete-dustbin-remove-trash-trash-can_113940.png"
           alt="Excluir"
         />
+      </button>
+      <button class="botaoLike" @click="alternarLike(post)">
+        <img v-if="!post.likeAtivo" src="/img/likeNormal.png" alt="Like" />
+        <img v-if="post.likeAtivo" src="/img/LikeAtivo.png" alt="Like" />
       </button>
     </div>
   </div>
@@ -24,17 +32,31 @@ export default {
   data() {
     return {
       posts: [],
+      meuId: localStorage.getItem("id"),
     };
   },
   mounted() {
     this.todosPosts();
   },
   methods: {
-    todosPosts() {
-      API.getPostAll().then((response) => {
-        this.posts = response.data;
+    excluirPost(idPost) {
+      API.deletarPost(idPost).then(() => {
+        alert("postagem excluida!");
+        this.todosPosts();
       });
     },
+    todosPosts() {
+      API.getPostAll().then((response) => {
+        this.posts = response.data.map((post) => ({
+          ...post,
+          likeAtivo: false,
+        }));
+      });
+    },
+    alternarLike(post) {
+      post.likeAtivo = !post.likeAtivo;
+    },
+
     removerPostagemPorId(idPost) {
       const index = this.postagens.findIndex(
         (postagem) => postagem.id === idPost
@@ -73,5 +95,17 @@ export default {
   position: absolute;
   bottom: 5px;
   right: 5px;
+}
+
+.botaoLike {
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.botaoLike img {
+  width: 25px;
+  height: 25px;
 }
 </style>
