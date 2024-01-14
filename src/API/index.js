@@ -1,4 +1,5 @@
 import axios from "axios";
+import { id } from "date-fns/locale";
 
 export const rede = axios.create({
   baseURL: "http://62.72.63.164:5000/api",
@@ -27,5 +28,11 @@ export default {
   },
   postUsuario() {
     return rede.get("/post/GetMyPosts");
+  },
+  likeEDislike(idPost) {
+    return rede.post("/post/LikeUnlikePost/" + idPost);
+  },
+  atualizarPost(idPost, novoConteudo) {
+    return rede.patch("/post/UpdatePost/" + idPost, novoConteudo);
   },
 };

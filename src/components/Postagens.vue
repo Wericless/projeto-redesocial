@@ -15,13 +15,19 @@
           alt="Excluir"
         />
       </button>
-      <button class="editarPostagem">
+      <button
+        class="editarPostagem"
+        @click="atualizarPost(idPost, novoConteudo)"
+        v-if="post.userId == meuId"
+      >
         <img src="/img/edit.png" alt="editar" />
       </button>
-      <button class="botaoLike" @click="alternarLike(post)">
-        <img v-if="!post.likeAtivo" src="/img/likeNormal.png" alt="Like" />
-        <img v-if="post.likeAtivo" src="/img/LikeAtivo.png" alt="Like" />
+
+      <button class="botaoLike" @click="likeEDislike(post.id)">
+        <img v-if="post.liked" src="/img/LikeAtivo.png" alt="Like" />
+        <img v-else src="/img/likeNormal.png" alt="Like" />
       </button>
+      {{ post.likes.length }}
     </div>
   </div>
 </template>
@@ -56,9 +62,12 @@ export default {
         }));
       });
     },
-    alternarLike(post) {
-      post.likeAtivo = !post.likeAtivo;
+    likeEDislike(idPost) {
+      API.likeEDislike(idPost).then(() => {
+        this.todosPosts();
+      });
     },
+    atualizarPost(idPost) {},
 
     removerPostagemPorId(idPost) {
       const index = this.postagens.findIndex(
@@ -72,7 +81,7 @@ export default {
       const dataFormatada = format(new Date(data), "dd/MM/yyyy", {
         locale: ptBR,
       });
-      const horaFormatada = format(new Date(data), "HH:mm:ss", {
+      const horaFormatada = format(new Date(data), "HH:mm", {
         locale: ptBR,
       });
       return `${dataFormatada} ${horaFormatada}`;
@@ -113,7 +122,6 @@ export default {
 .botaoLike {
   background: none;
   border: none;
-  padding: 10px;
   cursor: pointer;
 }
 

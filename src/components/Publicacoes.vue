@@ -55,6 +55,7 @@ export default {
         location.reload();
       });
     },
+
     excluirPost(idPost) {
       API.deletarPost(idPost).then((response) => {
         this.excluir = response.data;
