@@ -23,6 +23,7 @@ export default {
     return {
       mobileView: true,
       showNav: false,
+      meuId: localStorage.getItem("id"),
     };
   },
   components: {

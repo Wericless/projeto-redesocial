@@ -76,8 +76,8 @@ export default {
 
 <style>
 #novaPubli {
-  margin: 5px 5px 5px 0;
-  padding: 5px 5px 5px 0;
+  text-align: right;
+  margin: 5px;
 }
 
 #novaPubli button {
@@ -98,12 +98,13 @@ export default {
 textarea {
   font-family: "Arial", sans-serif;
   font-size: 16px;
-  padding: 10px;
+
   margin: 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   resize: none;
+  width: 100%;
 }
 textarea:focus {
   border: 2px solid #3498db;

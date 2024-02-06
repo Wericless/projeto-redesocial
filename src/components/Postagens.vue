@@ -2,13 +2,26 @@
   <div class="postagens">
     <div v-for="post in posts" :key="post.id" class="post">
       <h3>{{ post.user.name }}</h3>
-      <p>{{ post.content }}</p>
-      <span>{{ formatarData(post.createdAt) }}</span>
+
+      <p v-if="!post[editarPost]">{{ post.content }}</p>
+
+      <div v-else style="text-align: right">
+        <textarea v-model="post.content" class="campo-editar-post"></textarea>
+        <button @click="post[editarPost] = false" class="botaoEditar">
+          CANCELAR
+        </button>
+        <button
+          @click="atualizarPost(post.id, post.content)"
+          class="botaoEditar"
+        >
+          SALVAR
+        </button>
+      </div>
 
       <button
         class="botaoExcluir"
         @click="excluirPost(post.id)"
-        v-if="post.userId == meuId"
+        v-if="post.userId == meuId && !post[editarPost]"
       >
         <img
           src="/img/4105949-bin-delete-dustbin-remove-trash-trash-can_113940.png"
@@ -17,8 +30,8 @@
       </button>
       <button
         class="editarPostagem"
-        @click="atualizarPost(idPost, novoConteudo)"
-        v-if="post.userId == meuId"
+        @click="post[editarPost] = true"
+        v-if="post.userId == meuId && !post[editarPost]"
       >
         <img src="/img/edit.png" alt="editar" />
       </button>
@@ -33,11 +46,12 @@
 </template>
 
 <script>
-import { format } from "date-fns";
-import ptBR from "date-fns/locale/pt-BR";
 import API from "@/API";
 
 export default {
+  props: {
+    meuId: String,
+  },
   data() {
     return {
       posts: [],
@@ -67,7 +81,14 @@ export default {
         this.todosPosts();
       });
     },
-    atualizarPost(idPost) {},
+    atualizarPost(idPost, novoConteudo) {
+      let postAtualiado = {
+        content: novoConteudo,
+      };
+      API.atualizarPost(idPost, postAtualiado).then(() => {
+        this.todosPosts();
+      });
+    },
 
     removerPostagemPorId(idPost) {
       const index = this.postagens.findIndex(
@@ -76,15 +97,6 @@ export default {
       if (index !== -1) {
         this.postagens.splice(index, 1);
       }
-    },
-    formatarData(data) {
-      const dataFormatada = format(new Date(data), "dd/MM/yyyy", {
-        locale: ptBR,
-      });
-      const horaFormatada = format(new Date(data), "HH:mm", {
-        locale: ptBR,
-      });
-      return `${dataFormatada} ${horaFormatada}`;
     },
   },
 };
@@ -97,6 +109,23 @@ export default {
   border-radius: 15px;
   padding: 10px;
   position: relative;
+}
+
+.campo-editar-post {
+  width: 100%;
+  padding: 5px 2px;
+}
+
+.botaoEditar {
+  margin: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .editarPostagem {
