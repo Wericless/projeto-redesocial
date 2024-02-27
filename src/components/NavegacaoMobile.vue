@@ -38,18 +38,10 @@ li {
   font-weight: bold;
   margin-bottom: 20px;
   cursor: pointer;
-
-  &:hover {
-    color: #111;
-  }
 }
 
 a {
   text-decoration: none;
   color: #fff;
-
-  &:hover {
-    color: #111;
-  }
 }
 </style>

@@ -36,11 +36,13 @@
         <img src="/img/edit.png" alt="editar" />
       </button>
 
-      <button class="botaoLike" @click="likeEDislike(post.id)">
-        <img v-if="post.liked" src="/img/LikeAtivo.png" alt="Like" />
-        <img v-else src="/img/likeNormal.png" alt="Like" />
-      </button>
-      {{ post.likes.length }}
+      <div id="area-like">
+        <button class="botaoLike" @click="likeEDislike(post.id)">
+          <img v-if="post.liked" src="/img/LikeAtivo.png" alt="Like" />
+          <img v-else src="/img/likeNormal.png" alt="Like" />
+        </button>
+        {{ post.likes.length }}
+      </div>
     </div>
   </div>
 </template>
@@ -49,60 +51,103 @@
 import API from "@/API";
 
 export default {
-  props: {
-    meuId: String,
-  },
+  props: ["meuId", "pagina"],
   data() {
     return {
       posts: [],
-      meuId: localStorage.getItem("id"),
     };
   },
   mounted() {
-    this.todosPosts();
+    console.log(this.pagina);
+    if (this.pagina === "todos") {
+      this.todosPosts();
+    } else if (this.pagina === "meus") {
+      this.meusPosts();
+    }
   },
+
   methods: {
-    excluirPost(idPost) {
-      API.deletarPost(idPost).then(() => {
-        alert("postagem excluida!");
-        this.todosPosts();
-      });
-    },
     todosPosts() {
-      API.getPostAll().then((response) => {
-        this.posts = response.data.map((post) => ({
-          ...post,
-          likeAtivo: false,
-        }));
-      });
+      API.getPostAll()
+        .then((response) => {
+          this.posts = response.data.map((post) => ({
+            ...post,
+            likeAtivo: false,
+          }));
+        })
+        .catch(() => {
+          //limpar localstorage caso não tenha permissão
+          this.erroSemPermissao();
+        });
     },
+
+    meusPosts() {
+      API.postUsuario()
+        .then((response) => {
+          this.posts = response.data.map((post) => ({
+            ...post,
+            likeAtivo: false,
+          }));
+        })
+        .catch(() => {
+          //limpar localstorage caso não tenha permissão
+          this.erroSemPermissao();
+        });
+    },
+
     likeEDislike(idPost) {
-      API.likeEDislike(idPost).then(() => {
-        this.todosPosts();
-      });
+      API.likeEDislike(idPost)
+        .then(() => {
+          this.todosPosts();
+        })
+        .catch(() => {
+          //limpar localstorage caso não tenha permissão
+          this.erroSemPermissao();
+        });
     },
+
     atualizarPost(idPost, novoConteudo) {
       let postAtualiado = {
         content: novoConteudo,
       };
-      API.atualizarPost(idPost, postAtualiado).then(() => {
-        this.todosPosts();
-      });
+
+      API.atualizarPost(idPost, postAtualiado)
+        .then(() => {
+          this.todosPosts();
+        })
+        .catch(() => {
+          //limpar localstorage caso não tenha permissão
+          this.erroSemPermissao();
+        });
     },
 
-    removerPostagemPorId(idPost) {
-      const index = this.postagens.findIndex(
-        (postagem) => postagem.id === idPost
-      );
-      if (index !== -1) {
-        this.postagens.splice(index, 1);
-      }
+    excluirPost(idPost) {
+      API.deletarPost(idPost)
+        .then(() => {
+          alert("postagem excluida!");
+          this.todosPosts();
+        })
+        .catch(() => {
+          //limpar localstorage caso não tenha permissão
+          this.erroSemPermissao();
+        });
+    },
+
+    erroSemPermissao() {
+      localStorage.clear();
+      alert("Sessão expirada, faça login novamente");
+      this.$router.push({ name: "Login" });
     },
   },
 };
 </script>
 
 <style scoped>
+#area-like {
+  display: flex;
+  align-items: center;
+}
+
 .post {
   margin-bottom: 10px;
   background-color: #7ca971;

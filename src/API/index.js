@@ -10,6 +10,13 @@ export const rede = axios.create({
   },
 });
 
+rede.interceptors.request.use((config) => {
+  if (localStorage.getItem("token"))
+    config.headers["Authorization"] = "Bearer " + localStorage.getItem("token");
+
+  return config;
+});
+
 export default {
   criarUsuario(data) {
     return rede.post("/User/CreateUser", data);

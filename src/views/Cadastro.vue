@@ -45,9 +45,10 @@ export default {
           name: this.name,
           email: this.email,
           password: this.password,
+          confirmPassword: this.confirmPassword,
         })
           .then((response) => {
-            console.log("Registrado com sucesso", response);
+            alert("Registrado com sucesso", response);
           })
           .catch((error) => {
             console.log("Erro ao registrar", error);
@@ -75,10 +76,10 @@ export default {
   text-align: center;
 }
 .logo {
-  width: 17%;
+  width: 20%;
   height: 20%;
-  margin-bottom: 15px;
-  margin-left: 50px;
+  margin-bottom: 20px;
+  margin-left: 70px;
 }
 
 @media (max-width: 600px) {

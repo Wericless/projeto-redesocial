@@ -13,9 +13,10 @@
       <input type="password" v-model="senha" placeholder="Senha" />
 
       <button @click="login" class="login-button">Entar</button>
-      <p>
+
+      <div class="cadatroEdit">
         <router-link to="/cadastro">Cadastrar-se</router-link>
-      </p>
+      </div>
     </div>
   </div>
 </template>
@@ -41,12 +42,13 @@ export default {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("id", response.data.id);
           localStorage.setItem("name", response.data.name);
-          localStorage.setItem("emial", response.data.email);
-
-          this.$router.push("/");
+          localStorage.setItem("email", response.data.email);
         })
         .catch((error) => {
           console.error(error);
+        })
+        .then(() => {
+          this.$router.push({ name: "Home" });
         });
     },
   },
@@ -56,15 +58,8 @@ export default {
 <style scoped>
 #app {
   text-align: center;
-  font-family: "Montserrat", sans-serif;
-  font-family: "Oxanium", sans-serif;
-  font-family: "Roboto", sans-serif;
+
   background-image: url("/public/img/Papel-de-parede-degrade-verde-133.webp");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  border-radius: 10px;
 }
 
 .icon-img {
@@ -72,10 +67,10 @@ export default {
 }
 
 .logo {
-  width: 17%;
+  width: 20%;
   height: 20%;
-  margin-bottom: 15px;
-  margin-left: 50px;
+  margin-bottom: 20px;
+  margin-left: 70px;
 }
 
 .registro input,
@@ -111,5 +106,9 @@ export default {
 .register-button:active,
 .login-button:active {
   transform: scale(0.95);
+}
+
+.cadatroEdit {
+  margin-top: 10px;
 }
 </style>
