@@ -51,7 +51,7 @@ export default {
             alert("Registrado com sucesso", response);
           })
           .catch((error) => {
-            console.log("Erro ao registrar", error);
+            alert("Erro ao registrar", error);
           });
       }
     },
@@ -128,5 +128,24 @@ export default {
 .register-button:active,
 .login-button:active {
   transform: scale(0.95);
+}
+@media screen and (max-width: 900px) {
+  .logo {
+    width: 200px;
+    height: auto;
+    margin: 0 auto;
+  }
+  .registro input,
+  .login input {
+    margin-top: 20px;
+    width: 200px;
+    height: 30px;
+  }
+
+  .registro button,
+  .login button {
+    width: 224px;
+    height: 40px;
+  }
 }
 </style>

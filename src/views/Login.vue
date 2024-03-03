@@ -45,7 +45,7 @@ export default {
           localStorage.setItem("email", response.data.email);
         })
         .catch((error) => {
-          console.error(error);
+          alert("Email ou senha estão incorretos!", error);
         })
         .then(() => {
           this.$router.push({ name: "Home" });
@@ -55,13 +55,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #app {
   text-align: center;
-
+  font-family: "Montserrat", sans-serif;
+  font-family: "Oxanium", sans-serif;
+  font-family: "Roboto", sans-serif;
   background-image: url("/public/img/Papel-de-parede-degrade-verde-133.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  border-radius: 10px;
+  height: 100vh;
 }
-
 .icon-img {
   text-align: center;
 }
@@ -110,5 +117,25 @@ export default {
 
 .cadatroEdit {
   margin-top: 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .logo {
+    width: 200px;
+    height: auto;
+    margin: 0 auto;
+  }
+  .registro input,
+  .login input {
+    margin-top: 20px;
+    width: 200px;
+    height: 30px;
+  }
+
+  .registro button,
+  .login button {
+    width: 224px;
+    height: 40px;
+  }
 }
 </style>

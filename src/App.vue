@@ -6,14 +6,15 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 body {
   font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-family: "Oxanium", sans-serif;
   font-weight: bold;
   width: 100%;
   height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: #fff;
 }
 </style>
